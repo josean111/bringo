@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -20,7 +19,6 @@ android {
     }
 
     defaultConfig {
-        // Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.bringo"
         minSdk = 23
         targetSdk = 35
@@ -30,20 +28,22 @@ android {
 
     buildTypes {
         release {
-            // Add your own signing config for the release build.
-            signingConfig = signingConfigs.getByName("debug")
-            
-            // Enabling minification and resource shrinking for release build
-            isMinifyEnabled = true  // Enables code shrinking
-            shrinkResources = true  // Enables resource shrinking
+            isMinifyEnabled = true  // Enable minification
+            shrinkResources = true  // Enable resource shrinking
 
-            // Ensure proper syntax for file paths (use double quotes for file names in Proguard configuration)
+            // Proguard rules file
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile("proguard-android-optimize.txt"), 
                 "proguard-rules.pro"
             )
         }
     }
+
+    dependencies {
+    implementation("com.android.support:appcompat-v7:28.0.0") // Example dependency, add other dependencies here classpath("com.android.tools.build:gradle:7.4.0")  // AGP version for Gradle 8.x
+    // Add other dependencies as needed
+    }
+
 }
 
 flutter {
