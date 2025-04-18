@@ -40,7 +40,7 @@ android {
     }
 
     dependencies {
-    implementation("com.android.support:appcompat-v7:28.0.0") // Example dependency, add other dependencies here classpath("com.android.tools.build:gradle:7.4.0")  // AGP version for Gradle 8.x
+    implementation("com.android.support:appcompat-v7:28.0.0") // Example dependency, add other dependencies here classpath("com.android.tools.build:gradle:7.0.0")  // AGP version for Gradle 8.x
     // Add other dependencies as needed
     }
 
