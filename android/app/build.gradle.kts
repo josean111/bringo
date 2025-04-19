@@ -27,25 +27,19 @@ android {
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = true  // Enable minification
-            shrinkResources = true  // Enable resource shrinking
+        getByName("release") {
+            isMinifyEnabled = true // Enable code shrinking
+            isShrinkResources = true // Enable resource shrinking
 
-            // Proguard rules file
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), 
+                getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
-
-    dependencies {
-    implementation("com.android.support:appcompat-v7:28.0.0") // Example dependency, add other dependencies here classpath("com.android.tools.build:gradle:7.0.0")  // AGP version for Gradle 8.x
-    // Add other dependencies as needed
-    }
-
 }
 
-flutter {
-    source = "../.."
+dependencies {
+    implementation("com.android.support:appcompat-v7:28.0.0") // Example dependency
+    // Add other dependencies here
 }
