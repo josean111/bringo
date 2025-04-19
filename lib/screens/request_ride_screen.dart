@@ -1,9 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_config/flutter_config.dart'; // Import for FlutterConfig
 import 'package:http/http.dart' as http;
-import 'package:bringo/screens/home_screen.dart'; 
-
 
 class RequestRideScreen extends StatefulWidget {
   @override
@@ -17,14 +16,16 @@ class _RequestRideScreenState extends State<RequestRideScreen> {
   Set<Marker> _markers = {};
   bool _isRequesting = false;
 
+   Future<void> _loadConfig() async {
+    // Use FlutterConfig.get() to fetch environment variables directly
+    String apiKey = FlutterConfig.get('google_maps_api_key');
+    print("API Key Loaded: $apiKey");
+  }
+
   @override
   void initState() {
     super.initState();
-    _loadConfig();
-  }
-
-  Future<void> _loadConfig() async {
-    await FlutterConfig.loadEnv();
+    _loadConfig(); // Load the configuration on screen initialization
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -36,10 +37,10 @@ class _RequestRideScreenState extends State<RequestRideScreen> {
       _isRequesting = true;
     });
 
-    String apiKey = FlutterConfig.get('google_maps_api_key');
+    String apiKey = FlutterConfig.get('google_maps_api_key');  // Ensure API key is fetched from the .env
     String eta = await getETA(_currentPosition, _dropOffPosition, apiKey);
-    
-    // Handle ride request logic here (e.g., API call to request a ride, etc.)
+
+    // Handle the ride request logic here (e.g., API call, showing ETA, etc.)
     print("ETA: $eta");
 
     setState(() {
@@ -53,8 +54,9 @@ class _RequestRideScreenState extends State<RequestRideScreen> {
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
-        // Process ETA data from the response
-        return "5 mins"; // Return mock ETA (you can parse the real response here)
+        final data = jsonDecode(response.body);
+        final duration = data['routes'][0]['legs'][0]['duration']['text'];
+        return duration;
       } else {
         throw Exception('Failed to load ETA');
       }
@@ -103,7 +105,7 @@ class _RequestRideScreenState extends State<RequestRideScreen> {
                   ? CircularProgressIndicator()
                   : Text("Request Ride"),
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
+                backgroundColor: Colors.blue,  // Use backgroundColor instead of primary
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 textStyle: TextStyle(fontSize: 18),
               ),

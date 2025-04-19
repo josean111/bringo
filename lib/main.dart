@@ -6,12 +6,13 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:bringo/screens/home_screen.dart';
 import 'package:bringo/screens/request_ride_screen.dart';
+import 'package:geolocator/geolocator.dart'; 
+import 'dart:convert'; 
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FlutterConfig.loadEnv(); // Load config file
   runApp(MyApp());
 }
 
