@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:bringo/screens/request_ride_screen.dart'; 
 
 class HomeScreen extends StatelessWidget {

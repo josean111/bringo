@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:bringo/screens/home_screen.dart';
 import 'package:bringo/screens/request_ride_screen.dart';
 import 'package:geolocator/geolocator.dart'; 
 import 'dart:convert'; 
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -116,8 +113,13 @@ class _RequestRideScreenState extends State<RequestRideScreen> {
           // Sample pick-up and drop-off locations
           LatLng dropOffLocation = LatLng(37.42796133580664, -122.085749655962);
 
-          // Fetch API key from FlutterConfig
-          String apiKey = FlutterConfig.get('google_maps_api_key');
+          // Fetch API key from the .env file using dotenv
+          String apiKey = 'AIzaSyDJy-z1jRM7CZclV8dwcR-pBVXlNeYnrX0';
+          if (apiKey.isEmpty) {
+            print("API Key is missing from .env file");
+            return;
+          }
+
           String eta = await getETA(_currentPosition, dropOffLocation, apiKey);
 
           // Pass ETA and Driver info to Confirmation screen
