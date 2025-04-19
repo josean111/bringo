@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:bringo/screens/home_screen.dart'; 
+
 
 class RequestRideScreen extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class _RequestRideScreenState extends State<RequestRideScreen> {
   }
 
   Future<void> _loadConfig() async {
-    await FlutterConfig.load();
+    await FlutterConfig.loadEnv();
   }
 
   void _onMapCreated(GoogleMapController controller) {

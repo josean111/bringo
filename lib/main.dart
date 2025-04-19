@@ -1,18 +1,17 @@
-import 'package:bringo/screens/request_ride_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:bringo/screens/home_screen.dart'; // assuming the home screen is located here
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:bringo/screens/home_screen.dart';
+import 'package:bringo/screens/request_ride_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FlutterConfig.load(); // Load config file
+  await FlutterConfig.loadEnv(); // Load config file
   runApp(MyApp());
 }
 
